@@ -1,19 +1,21 @@
 name: Test app
 on:
- push: 
+  push: 
     branches: [main, master]
- pull_request: 
+  pull_request: 
     branches: [main, master]
 jobs: 
- test: 
+  test: 
     runs-on: ubuntu-latest
     steps: 
     - name: Checkout code
       uses: actions/checkout@v4
     
     - name: Install deps
-      run: npm ci
+      run: |
+        # Видаляємо старий lock file і встановлюємо залежності
+        rm -f package-lock.json
+        npm install
     
     - name: test code
       run: npm test
-        
